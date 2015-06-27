@@ -38,3 +38,5 @@ function Reset-Colors {
     $host.ui.rawui.BackgroundColor = $OrigBgColor
     $host.ui.rawui.ForegroundColor = $OrigFgColor
 }
+
+$env:path = "$env:path;C:\Program Files (x86)\Microsoft SDKs\F#\3.0\Framework\v4.0\"
