@@ -16,6 +16,23 @@ if ERRORLEVEL 1 (
 :: Script should be in the root of the dot-files directory - wherever that is.
 call :directory_name_from_path fileRoot %0
 
+set _tempps=%LocalAppData%\choco.ps1
+call :command_exists "choco"
+if ERRORLEVEL 1 (
+  echo "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" >> %_tempps%
+)
+call :command_exists "git"
+if ERRORLEVEL 1 (
+  echo "choco install -y git" >> %_tempps%
+)
+call :command_exists "vim"
+if ERRORLEVEL 1 (
+  echo "choco install -y vim" >> %_tempps%
+)
+if exist %_tempps% (
+  powershell -f %_tempps% -ExecutionPolicy Bypass
+)
+
 pushd %fileRoot%
 
 if not exist %swapDir% (
@@ -94,6 +111,13 @@ popd
     echo "Unable to link !source!. File does not exist."
     exit /b
    )
+)
+
+:command_exists <command>
+(
+  set! command="%1"
+  where /q !command!
+  exit /b !ERRORLEVEL!
 )
 
 :eof
