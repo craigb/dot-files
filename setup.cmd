@@ -16,6 +16,17 @@ if ERRORLEVEL 1 (
 :: Script should be in the root of the dot-files directory - wherever that is.
 call :directory_name_from_path fileRoot %0
 
+pushd %fileRoot%
+
+if not exist %swapDir% (
+  mkdir %swapDir%
+)
+
+if not exist ".vim\bundle\Vundle.vim" (
+  echo "Cloning Vundle into .vim/bundle/Vundle.vim"
+  git clone https://github.com/gmarik/Vundle.vim.git .vim\bundle\Vundle.vim
+)
+
 set _tempps=%LocalAppData%\choco.ps1
 call :command_exists "choco"
 if ERRORLEVEL 1 (
@@ -33,21 +44,14 @@ if exist %_tempps% (
   powershell -f %_tempps% -ExecutionPolicy Bypass
 )
 
-pushd %fileRoot%
-
-if not exist %swapDir% (
-  mkdir %swapDir%
-)
-
-if not exist ".vim\bundle\Vundle.vim" (
-  echo "Cloning Vundle into .vim/bundle/Vundle.vim"
-  git clone https://github.com/gmarik/Vundle.vim.git .vim\bundle\Vundle.vim
-)
+set userPowershell=%USERPROFILE%\Documents\WindowsPowerShell\
+set powershellRoot=%fileRoot%\powershell\
 
 call :link_if_missing ".vimrc" %USERPROFILE% %fileRoot%
 call :link_if_missing ".bash_profile" %USERPROFILE% %fileRoot%
 call :link_if_missing ".bashrc" %USERPROFILE% %fileRoot%
 call :link_if_missing ".vim" %USERPROFILE% %fileRoot%
+call :link_if_missing "Modules" %userPowershell% %powershellRoot%
 
 echo Linking finished. Press any key to install Vundle plugins
 @pause
