@@ -27,21 +27,17 @@ if not exist ".vim\bundle\Vundle.vim" (
   git clone https://github.com/gmarik/Vundle.vim.git .vim\bundle\Vundle.vim
 )
 
-set _tempps=%LocalAppData%\choco.ps1
 call :command_exists "choco"
 if ERRORLEVEL 1 (
-  echo "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" >> %_tempps%
+  powershell -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
 )
 call :command_exists "git"
 if ERRORLEVEL 1 (
-  echo "choco install -y git" >> %_tempps%
+  powershell -ExecutionPolicy Bypass -Command "choco install -y git"
 )
 call :command_exists "vim"
 if ERRORLEVEL 1 (
-  echo "choco install -y vim" >> %_tempps%
-)
-if exist %_tempps% (
-  powershell -f %_tempps% -ExecutionPolicy Bypass
+  powershell -ExecutionPolicy Bypass -Command "choco install -y vim"
 )
 
 set userPowershell=%USERPROFILE%\Documents\WindowsPowerShell\
