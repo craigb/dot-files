@@ -13,6 +13,20 @@ if ERRORLEVEL 1 (
   goto rerun_script_elevated
 )
 
+call :command_exists "choco"
+if ERRORLEVEL 1 (
+  powershell -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
+  set PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+)
+call :command_exists "git"
+if ERRORLEVEL 1 (
+  powershell -ExecutionPolicy Bypass -Command "choco install -y git"
+)
+call :command_exists "vim"
+if ERRORLEVEL 1 (
+  powershell -ExecutionPolicy Bypass -Command "choco install -y vim"
+)
+
 :: Script should be in the root of the dot-files directory - wherever that is.
 call :directory_name_from_path fileRoot %0
 
@@ -25,19 +39,6 @@ if not exist %swapDir% (
 if not exist ".vim\bundle\Vundle.vim" (
   echo "Cloning Vundle into .vim/bundle/Vundle.vim"
   git clone https://github.com/gmarik/Vundle.vim.git .vim\bundle\Vundle.vim
-)
-
-call :command_exists "choco"
-if ERRORLEVEL 1 (
-  powershell -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
-)
-call :command_exists "git"
-if ERRORLEVEL 1 (
-  powershell -ExecutionPolicy Bypass -Command "choco install -y git"
-)
-call :command_exists "vim"
-if ERRORLEVEL 1 (
-  powershell -ExecutionPolicy Bypass -Command "choco install -y vim"
 )
 
 set userPowershell=%USERPROFILE%\Documents\WindowsPowerShell\
