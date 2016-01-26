@@ -16,7 +16,7 @@ if ERRORLEVEL 1 (
 call :command_exists "choco"
 if ERRORLEVEL 1 (
   powershell -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
-  set PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+  set PATH="%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 )
 call :command_exists "git"
 if ERRORLEVEL 1 (
@@ -116,7 +116,7 @@ popd
 
 :command_exists <command>
 (
-  set! command="%1"
+  set! command="%~1"
   where /q !command!
   exit /b !ERRORLEVEL!
 )
