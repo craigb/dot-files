@@ -89,3 +89,7 @@ map <F11> <Esc>:call ToggleGUICruft()<cr>
 
 " by default, hide gui menus
 set guioptions=r
+
+" Turn off logipat
+let g:loaded_logipat = 1
+set noeol
