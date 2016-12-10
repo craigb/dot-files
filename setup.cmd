@@ -15,16 +15,15 @@ if ERRORLEVEL 1 (
 
 call :command_exists "choco"
 if ERRORLEVEL 1 (
-  powershell -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))"
-  set PATH="%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+  echo No chocolatey.
 )
 call :command_exists "git"
 if ERRORLEVEL 1 (
-  powershell -ExecutionPolicy Bypass -Command "choco install -y git"
+  echo No git.
 )
 call :command_exists "vim"
 if ERRORLEVEL 1 (
-  powershell -ExecutionPolicy Bypass -Command "choco install -y vim"
+  echo No vim.
 )
 
 :: Script should be in the root of the dot-files directory - wherever that is.
