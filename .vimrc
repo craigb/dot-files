@@ -35,7 +35,10 @@ set shiftwidth=4
 
 set list listchars=tab:→\ ,trail:·
 
-nnoremap ;; A;<Esc>                 " ;; to add a semicolon to the end of the line
+" nnoremap ;; A;<Esc>                 " ;; to add a semicolon to the end of the line
+
+" <Ctrl> + <BS> to delete back a word in insert mode
+imap <C-BS> <C-W>
 
 " Move vertically in the window through the horizontal splits...
 map <C-J> <C-w>j<C-w>_
