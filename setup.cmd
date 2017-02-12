@@ -13,6 +13,17 @@ if ERRORLEVEL 1 (
   goto rerun_script_elevated
 )
 
+call :command_exists "git"
+if ERRORLEVEL 1 (
+  echo No git.
+  exit /b 1
+)
+call :command_exists "vim"
+if ERRORLEVEL 1 (
+  echo No vim.
+  exit /b 1
+)
+
 :: Script should be in the root of the dot-files directory - wherever that is.
 call :directory_name_from_path fileRoot %0
 

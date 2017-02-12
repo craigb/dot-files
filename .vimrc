@@ -11,6 +11,8 @@ if has('win32') || has('win64')
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
+" TeSTTestCamelCaseT
+
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
@@ -23,6 +25,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'xoria256.vim'
 Plugin 'danro/rename.vim'
 Plugin 'othree/html5.vim'
+Plugin 'chaoren/vim-wordmotion'
 call vundle#end()
 filetype plugin indent on
 
@@ -35,7 +38,12 @@ set shiftwidth=4
 
 set list listchars=tab:→\ ,trail:·
 
-nnoremap ;; A;<Esc>                 " ;; to add a semicolon to the end of the line
+" nnoremap ;; A;<Esc>                 " ;; to add a semicolon to the end of the line
+
+" <Ctrl> + <BS> to delete back a word in insert mode
+
+imap <C-W> <C-o>a <C-o>b<C-o>dw
+imap <C-BS> <C-W>
 
 " Move vertically in the window through the horizontal splits...
 map <C-J> <C-w>j<C-w>_
