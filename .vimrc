@@ -23,6 +23,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'xoria256.vim'
 Plugin 'danro/rename.vim'
 Plugin 'othree/html5.vim'
+Plugin 'chaoren/vim-wordmotion'
 call vundle#end()
 filetype plugin indent on
 
